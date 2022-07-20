@@ -8,5 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Customer extends Model
 {
     use HasFactory;
-    protected $casts = ['food'=>'array'];
+    protected $casts = [
+        'food'=>'array',
+        'mealSelect'=>'array'
+    ];
 }

@@ -64,6 +64,7 @@ Kalori Ekle
                                 <option  value="Ara Öğün">Ara Öğün</option>
                                 <option  value="öğle Yemeği">Öğle Yemeği</option>
                                 <option  value="Akşam Yemeği">Akşam Yemeği</option>
+                                <option  value="Ek Öğün">Ek Öğün</option>
                             </select>
 
                             <button type="submit" class="btn btn-outline-success float-end">Ekle</button>

@@ -11,6 +11,7 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+
 Route::get('/',[CustomerController::class,'FrontIndex'])->name('onlineDietForm');
 
 Route::prefix('panel')->middleware('auth')->group(function(){

@@ -25,7 +25,7 @@ Müşteri Detayı
                                             <b>Kilo :</b> <a class="float-right">{{$customer->weight . " Kg"}}</a>
                                         </li>
                                         <li class="list-group-item">
-                                            <b>Boy :</b> <a class="float-right">{{strval($customer->height) . " Cm"}}</a>
+                                            <b>Boy :</b> <a class="float-right">{{number_format($customer->height,2) . " Cm"}}</a>
                                         </li>
                                         <li class="list-group-item">
                                             <b>Cinsiyet :</b> <a class="float-right">{{$customer->gender}}</a>
@@ -45,7 +45,15 @@ Müşteri Detayı
                                                 <b>İdeal BMI :</b><a class="float-right">{{ $IdealBmi     }}</a>
                                             </li>
                                             <li class="list-group-item">
-                                                <b>Öğün Sayısı</b><a class="float-right">{{ $customer->numberOfMeals . " öğün" }}</a>
+                                                <label for="">Öğün Seçimleri</label>
+                                                    <p>
+                                                        <a class="">
+                                                            @foreach($customer->mealSelect as $k=> $meals)
+                                                                {{ !empty($customer->mealSelect) ? $meals  : '' }}
+                                                                <br>
+                                                            @endforeach
+                                                        </a>
+                                                    </p>
                                             </li>
                                             <li class="list-group-item">
                                                 <div class="row">
@@ -53,7 +61,7 @@ Müşteri Detayı
                                                         <b>İdeal kilo</b>
                                                     </div>
                                                     <div class="col">
-                                                        <input name="" id="idealWeight" type="number" step="0.1" class="form-control w-75 float-end" value="{{ number_format($IdealWeight,1) }}">
+                                                        <a class="float-right">{{ number_format($IdealWeight,1) }}</a>
                                                     </div>
                                                 </div>
                                             </li>
@@ -85,6 +93,7 @@ Müşteri Detayı
                         </div>
                         <div class="card-body">
                             <div class="row">
+                                @if(!empty($customer->food['breakfast']))
                                 <div class="col-md-4">
                                     <div class="card">
                                         <div class="card-header text-muted">Kahvaltılık Seçimler</div>
@@ -97,28 +106,59 @@ Müşteri Detayı
                                         </div>
                                     </div>
                                 </div>
+                                @endif
+                                @if(!empty($customer->food['snack1']))
                                 <div class="col-md-4">
                                     <div class="card">
-                                        <div class="card-header text-muted">Ana Öğün Seçimleri</div>
+                                        <div class="card-header text-muted">Ara Öğün 1 Seçimleri</div>
                                         <div class="card-body">
-                                            @foreach($customer->food['mainDish'] as $foodID)
+                                            @foreach($customer->food['snack1'] as $foodID)
                                                 {{ !empty($calories[$foodID]) ? $calories[$foodID]->food : '' }}
                                                 <br>
                                             @endforeach
                                         </div>
                                     </div>
                                 </div>
+                                @endif
+                                @if(!empty($customer->food['lunch']))
                                 <div class="col-md-4">
                                     <div class="card">
-                                        <div class="card-header text-muted">Ara Öğün Seçimleri</div>
+                                        <div class="card-header text-muted">Öğle Yemeği Seçimleri</div>
                                         <div class="card-body">
-                                            @foreach($customer->food['snack'] as $foodID)
+                                            @foreach($customer->food['lunch'] as $foodID)
                                                 {{ !empty($calories[$foodID]) ? $calories[$foodID]->food : '' }}
                                                 <br>
                                             @endforeach
                                         </div>
                                     </div>
                                 </div>
+                                @endif
+                                @if(!empty($customer->food['dinner']))
+                                <div class="col-md-4">
+                                    <div class="card">
+                                        <div class="card-header text-muted">Akşam Yemeği Seçimleri</div>
+                                        <div class="card-body">
+                                            @foreach($customer->food['dinner'] as $foodID)
+                                                {{ !empty($calories[$foodID]) ? $calories[$foodID]->food : '' }}
+                                                <br>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                                @endif
+                                @if(!empty($customer->food['snack2']))
+                                <div class="col-md-4">
+                                    <div class="card">
+                                        <div class="card-header text-muted">Ara Öğün 2 Seçimleri</div>
+                                        <div class="card-body">
+                                            @foreach($customer->food['snack2'] as $foodID)
+                                                {{ !empty($calories[$foodID]) ? $calories[$foodID]->food : '' }}
+                                                <br>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                                @endif
                             </div>
                         </div>
                         <div class="row">
@@ -134,20 +174,5 @@ Müşteri Detayı
         </div>
     </section>
 </div>
-<script type="text/javascript">
-    $(document).ready(function (){
-        $('#idealWeight').change(function (){
-            var idealWeight = $('#idealWeight').val();
-            if(idealWeight)
-            {
-                var idealCalorie = $('#idealCalorie').val();
-                var idealCaloriePerKilo = (idealCalorie /  idealWeight) /10  ;
-                $('#idealCalorie').val( Number(parseInt(idealCalorie))  + Number(parseFloat(idealCaloriePerKilo).toFixed(0)));
-            }
-            else {
-                $('#idealCalorie').val( Number(parseInt(idealCalorie))  - Number(parseFloat(idealCaloriePerKilo).toFixed(0)));
-            }
-        })
-    })
-</script>
+
 @endsection

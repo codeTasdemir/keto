@@ -4,7 +4,7 @@ Online Diyet Başvuru
 @endsection
 @section('content')
         <div class="row mt-2">
-            <div class="col-6 m-auto">
+            <div class="col-md-6 m-auto">
                 <div class="card">
                     <div class="alert alert-warning border-0 text-white h3">Online Diyet Talebi</div>
                         <div class="card-body">
@@ -25,11 +25,11 @@ Online Diyet Başvuru
                                 </div>
                                 <div class="col-md-2">
                                     <label for="exampleInputEmail1" class="form-label">Kilo</label>
-                                    <input type="number" class="form-control" name="weight" step="0.1" required placeholder="örn: 86.5">
+                                    <input type="number" class="form-control" name="weight" step="0.1" max="200" required placeholder="örn: 86.5">
                                 </div>
                                 <div class="col-md-2">
                                     <label for="exampleInputEmail1" class="form-label">Boy (cm)</label>
-                                    <input id="height" type="number"  class="form-control" name="height"  step="0"  max="220" required placeholder="örn: 1.80">
+                                    <input id="height" type="number"  class="form-control" name="height"  step="0.01"  required placeholder="örn: 1.80">
                                 </div>
                                 <div class="col-md-2">
                                     <label for="">Cinsiyet</label>
@@ -40,97 +40,115 @@ Online Diyet Başvuru
                                 </div>
                         </div>
                 </div>
-                {{--gün içi hareketlilik --}}
-                {{--<div class="card">
-                    <div class="card-header"><legend>Gün içi hareketlilik seviyeniz</legend></div>
-                    <div class="card-body">
-                        <div class="">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="activity" required value="1.2" id="flexRadioDefault1">
-                                <label class="form-check-label" for="flexRadioDefault1">
-                                    Hareket etmiyorum,çok az hareket ediyorum
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="activity" value="1.375" id="flexRadioDefault1">
-                                <label class="form-check-label" for="flexRadioDefault1">
-                                    Az hareketli (Hafif hareketli bir yaşam / Haftada 1-3 gün egzersiz yapıyorum.)
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="activity" value="1.55" id="flexRadioDefault1">
-                                <label class="form-check-label" for="flexRadioDefault1">
-                                    Orta derece hareketli (Hareketli bir yaşam / Haftada 3-5 gün egzersiz yapıyorum.)
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="activity" value="1.72" id="flexRadioDefault1">
-                                <label class="form-check-label" for="flexRadioDefault1">
-                                    Çok hareketli (Çok hareketli bir yaşam / Haftada 6-7 gün egzersiz yapıyorum.)
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="activity" value="1.9" id="flexRadioDefault1">
-                                <label class="form-check-label" for="flexRadioDefault1">
-                                    Aşırı hareketli (Profesyonel sporcu, atlet seviyesi.)
-                                </label>
-                            </div>
 
-                        </div>
-                    </div>
-                </div>--}}
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
                             <div class="col">
                                 <legend>Besin Listesi</legend>
                             </div>
-                            <div class="col-4 m-2">
-                                <label class="form-label text-muted" for="">Kaç öğüne bölmek istersiniz?</label>
-                                <input class="form-control" type="number" value="3" name="numberOfMeals" min="3" max="6" required>
+                        </div>
+                        <div class="col-12 mb-4 border p-3">
+                            <label for="">Öğün Seçimi</label>
+                            <hr>
+                            <div class="form-check form-check-inline">
+                                <input class="mealSelect form-check-input" data-value="breakfast" name="mealSelect[]" type="checkbox" id="inlineCheckbox1" value="Kahvaltı">
+                                <label class="form-check-label" for="inlineCheckbox1">Kahvaltı</label>
                             </div>
+                            <div class="form-check form-check-inline">
+                                <input class="mealSelect form-check-input" data-value="snack1" name="mealSelect[]" type="checkbox" id="inlineCheckbox2" value="Ara Öğün 1">
+                                <label class="form-check-label" for="inlineCheckbox2">Ara Öğün 1</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                    <input class="mealSelect form-check-input" data-value="lunch" name="mealSelect[]" type="checkbox" id="inlineCheckbox3" value="Öğle Yemeği">
+                                <label class="form-check-label" for="inlineCheckbox3">Öğle Yemeği</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="mealSelect form-check-input" data-value="snack2" name="mealSelect[]" type="checkbox" id="inlineCheckbox4" value="Ara Öğün 2">
+                                <label class="form-check-label" for="inlineCheckbox4">Ara Öğün 2</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="mealSelect form-check-input" data-value="dinner" name="mealSelect[]" type="checkbox" id="inlineCheckbox5" value="Akşam Yemeği">
+                                <label class="form-check-label" for="inlineCheckbox5">Akşam Yemeği</label>
+                            </div>
+
                         </div>
                             <div class="row border p-2 ">
-                                <div class="row">
-                                    <label for="">Kahvaltı</label>
-                                    <hr>
-                                    <div class="col mb-4 ">
-                                            @foreach($foods as $food)
+                                <div class=" row">
+                                    <div style="display: none"  class="breakfastArea col-md-12 mb-4">
+                                        <label for="">Kahvaltı</label>
+                                        <hr>
+                                            @foreach($foods as $k=> $food)
                                                 @if(in_array('Kahvaltı',$food->meal) ? $food->food : '')
                                                         <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="checkbox"  name="food[breakfast][]"  value="{{in_array('Kahvaltı',$food->meal) ? $food->id : ''}}">
-                                                            <label class="form-check-label" for="inlineCheckbox1">{{in_array('Kahvaltı',$food->meal) ? $food->food : ''}}</label>
+                                                            <input class="form-check-input" id="breakfastCheckbox{{$k}}" type="checkbox"  name="food[breakfast][]"  value="{{in_array('Kahvaltı',$food->meal) ? $food->id : ''}}">
+                                                            <label class="form-check-label" for="breakfastCheckbox{{$k}}">{{in_array('Kahvaltı',$food->meal) ? $food->food : ''}}</label>
                                                         </div>
                                                 @endif
                                             @endforeach
                                     </div>
+                                </div>
+                                <div class="row">
                                     <br>
-                                    <label>Ana Öğün</label>
-                                    <hr>
-                                    <div class="col mb-4">
-                                            @foreach($foods as $food)
+                                    <div style="display: none" class="lunchArea col-md-12 mb-4">
+                                        <label>öğle yemeği</label>
+                                        <hr>
+                                            @foreach($foods as $k=> $food)
                                                 @if(in_array("Akşam Yemeği",$food->meal) & in_array("öğle Yemeği",$food->meal) ? $food->food : '')
                                                         <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="checkbox"  name="food[mainDish][]" value="{{ in_array("Akşam Yemeği",$food->meal) & in_array("öğle Yemeği",$food->meal) ? $food->id : ''}}">
-                                                            <label class="form-check-label" for="inlineCheckbox1">{{in_array("Akşam Yemeği",$food->meal) & in_array("öğle Yemeği",$food->meal) ? $food->food : ''}}</label>
+                                                            <input class="form-check-input" id="lunchCheckbox{{$k}}" type="checkbox"  name="food[lunch][]" value="{{ in_array("Akşam Yemeği",$food->meal) & in_array("öğle Yemeği",$food->meal) ? $food->id : ''}}">
+                                                            <label class="form-check-label" for="lunchCheckbox{{$k}}">{{in_array("Akşam Yemeği",$food->meal) & in_array("öğle Yemeği",$food->meal) ? $food->food : ''}}</label>
                                                         </div>
                                                 @endif
                                             @endforeach
                                     </div>
+                                </div>
+                                <div class="row">
                                     <br>
-                                    <label>Ara Öğün</label>
-                                    <hr>
-                                    <div class="col mb-4">
-                                        @foreach($foods as $food)
-                                            @if(in_array("Ara Öğün",$food->meal) ? $food->food : '')
+                                    <div style="display: none" class="dinnerArea col-md-12 mb-4">
+                                        <label>Akşam Yemeği</label>
+                                        <hr>
+                                        @foreach($foods as $k=> $food)
+                                            @if(in_array("Akşam Yemeği",$food->meal) & in_array("öğle Yemeği",$food->meal) ? $food->food : '')
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input"  type="checkbox" name="food[snack][]" value="{{ in_array("Ara Öğün",$food->meal) ? $food->id : ''}}">
-                                                    <label class="form-check-label" for="inlineCheckbox1">{{ in_array("Ara Öğün",$food->meal) ? $food->food : ''}}</label>
+                                                    <input class="form-check-input" id="dinnerCheckbox{{$k}}" type="checkbox"  name="food[dinner][]" value="{{ in_array("Akşam Yemeği",$food->meal) & in_array("öğle Yemeği",$food->meal) ? $food->id : ''}}">
+                                                    <label class="form-check-label" for="dinnerCheckbox{{$k}}">{{in_array("Akşam Yemeği",$food->meal) & in_array("öğle Yemeği",$food->meal) ? $food->food : ''}}</label>
                                                 </div>
                                             @endif
                                         @endforeach
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <br>
+                                    <div style="display: none" class="SnackArea1 col-md-12 mb-4">
+                                        <label>Ara Öğün 1</label>
+                                        <hr>
+                                        @foreach($foods as $k=> $food)
+                                            @if(in_array("Ara Öğün",$food->meal) ? $food->food : '')
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" id="snack1Checkbox{{$k}}" type="checkbox" name="food[snack1][]" value="{{ in_array("Ara Öğün",$food->meal) ? $food->id : ''}}">
+                                                    <label class="form-check-label" for="snack1Checkbox{{$k}}">{{ in_array("Ara Öğün",$food->meal) ? $food->food : ''}}</label>
+                                                </div>
+                                            @endif
+                                        @endforeach
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <br>
+                                    <div style="display: none" class="SnackArea2 col-md-12 mb-4">
+                                        <label>Ara Öğün 2</label>
+                                        <hr>
+                                        @foreach($foods as $k=> $food)
+                                            @if(in_array("Ara Öğün",$food->meal) ? $food->food : '')
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" id="snack2Checkbox{{$k}}" type="checkbox" name="food[snack2][]" value="{{ in_array("Ara Öğün",$food->meal) ? $food->id : ''}}">
+                                                    <label class="form-check-label" for="snack2Checkbox{{$k}}">{{ in_array("Ara Öğün",$food->meal) ? $food->food : ''}}</label>
+                                                </div>
+                                            @endif
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
                             </div>
                             <div class="row mt-4">
                                 <div class="col mt-2">
@@ -150,4 +168,47 @@ Online Diyet Başvuru
                 </div>
             </div>
         </div>
+
+        <script type="text/javascript">
+            $(document).ready(function (){
+                console.log($('.mealSelect')[4].checked);
+                $('.mealSelect').on('click', function(){
+                    if( $(this).data('value') == "breakfast"){
+                        $('.breakfastArea').slideToggle('slow');
+                    }
+                    else if($(this).data('value') == "snack1"){
+                        if($('.mealSelect')[1].checked == true){
+                            $('.SnackArea1').show('slow');
+                        }
+                        else if($('.mealSelect')[1].checked == false){
+                            $('.SnackArea1').hide('slow');
+                        }
+                    }
+                    else if($(this).data('value') == "snack2"){
+                        if($('.mealSelect')[3].checked == true){
+                            $('.SnackArea2').show('slow');
+                        }
+                        else if($('.mealSelect')[3].checked == false){
+                            $('.SnackArea2').hide('slow');
+                        }
+                    }
+                    else if($(this).data('value') == "lunch"){
+                        if($('.mealSelect')[2].checked == true){
+                            $('.lunchArea').show('slow');
+                        }
+                        else if($('.mealSelect')[2].checked == false){
+                            $('.lunchArea').hide('slow');
+                        }
+                    }
+                    else if($(this).data('value') == "dinner"){
+                        if($('.mealSelect')[4].checked == true){
+                            $('.dinnerArea').show('slow');
+                        }
+                        else if($('.mealSelect')[4].checked == false ){
+                            $('.dinnerArea').hide('slow');
+                        }
+                    }
+                })
+            })
+        </script>
 @endsection

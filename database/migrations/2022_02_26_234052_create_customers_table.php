@@ -19,6 +19,7 @@ class CreateCustomersTable extends Migration
             $table->string('slug','50');
             $table->string('lastName','20');
             $table->integer('age');
+            $table->json('mealSelect');
             $table->float('weight');
             $table->float('height');
             $table->float('activity');
