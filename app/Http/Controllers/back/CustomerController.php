@@ -202,7 +202,7 @@ class CustomerController extends Controller
                 $MainDishCoefficient = 2;
 
                 //Öğle Yemeği Besinleri
-                $LunchFood = Calorie::whereJsonContains('meal', ['öğle Yemeği','Akşam Yemeği'])->whereIn('id', $customerLunchSelect)->get();
+                $LunchFood = Calorie::whereJsonContains('meal', 'öğle Yemeği')->orWhereJsonContains('meal','Akşam Yemeği')->whereIn('id', $customerLunchSelect)->get();
                 $LunchFood = $LunchFood->each(function ($item, $key) use ($LunchFood) {
                     for ($i = 1; ($i < $item->max); $i++) {
                         $LunchFood->push($item);
@@ -409,6 +409,13 @@ class CustomerController extends Controller
             'MaxCarbohydrate'=>$MaxCarbohydrate
         ];
 
+    }
+
+    public function addItemModal(Request $request)
+    {
+        $selectedMeals = collect($request->selectedMeals);
+        $meals =  Calorie::whereJsonContains('meal',$request->mealType)->get();
+        return response()->json(['data'=>['meals'=>$meals,'selectMeals'=>$selectedMeals]]);
     }
 
 }

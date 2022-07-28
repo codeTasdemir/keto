@@ -27,6 +27,8 @@ Route::prefix('panel')->middleware('auth')->group(function(){
     Route::get('/online-diyet-müşteri-detayı/{slug}',[CustomerController::class,'show'])->name('customer.detail');
     Route::get('/Diet-liste-hazırla/{slug}',[CustomerController::class,'ShowDietListForm'])->name('customer.CreateDietList');
 
+    Route::post('/diet-list-add-meal',[CustomerController::class,'addItemModal'])->name('calorie.addItem');
+
 
 });
 

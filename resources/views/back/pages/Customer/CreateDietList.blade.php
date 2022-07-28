@@ -11,19 +11,20 @@ Diyet Listesi Oluştur
                         <div class="alert alert-warning text-white ">
                             <div class="row">
                                 <div class="col-2"><h3>Diyet Listesi</h3></div>
-                                <div class="col-10 ">
-                                    <button class="btn btn-success float-end" onclick="window.location.reload();">Yenile <i class="fa fa-refresh ml-2" aria-hidden="true"> </i></button>
+                                    <div class="col-10 ">
+                                        <button class="btn btn-success float-end" onclick="window.location.reload();">Yenile <i class="fa fa-refresh ml-2" aria-hidden="true"> </i></button>
+                                    </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
+
                     <div class="card-body">
                         <div class="row">
                             @if(!empty($besinler['breakfast']['besinler']))
                             <div class="col-md-2">
                                 <div class="card">
-                                    <div class="card-header bg-green text-white">Kahvaltılık</div>
+                                    <div class="card-header bg-green text-white">Kahvaltılık <a data-bs-toggle="modal" data-bs-target="#exampleModalCenter" data-type="breakfast" data-id="Kahvaltı" class="addItemModal btn btn-sm btn-warning float-end"><i class="fa-solid fa-plus"></i></a></div>
                                     <div class="card-body">
                                         @foreach(collect($besinler['breakfast']['besinler'])->countBy() as $breakfast => $count)
                                             -  {{ $count }} {{$breakfast}}
@@ -46,7 +47,7 @@ Diyet Listesi Oluştur
                             @if(!empty($besinler['snack_1']['besinler']))
                             <div class="col-md-2">
                                 <div class="card">
-                                    <div class="card-header bg-green text-white">Ara Öğün 1</div>
+                                    <div class="card-header bg-green text-white">Ara Öğün 1 <a data-bs-toggle="modal" data-bs-target="#exampleModalCenter" data-type="snack_1" data-id="Ara Öğün"  class="addItemModal btn btn-sm btn-warning float-end"><i class="fa-solid fa-plus"></i></a></div>
                                     <div class="card-body">
                                         @foreach(collect($besinler['snack_1']['besinler'])->countBy() as $snack_1 => $count)
                                           -  {{ $count }} {{$snack_1}}
@@ -69,7 +70,7 @@ Diyet Listesi Oluştur
                             @if(!empty($besinler['lunch']['besinler']))
                             <div class="col-md-2">
                                 <div class="card">
-                                    <div class="card-header bg-green text-white">Öğle Yemeği</div>
+                                    <div class="card-header bg-green text-white">Öğle Yemeği <a data-bs-toggle="modal" data-bs-target="#exampleModalCenter" data-type="lunch" data-id="öğle Yemeği"  class="addItemModal btn btn-sm btn-warning float-end"><i class="fa-solid fa-plus"></i></a></div>
                                     <div class="card-body">
                                         @foreach(collect($besinler['lunch']['besinler'])->countBy() as $lunch => $count)
                                          -   {{ $count }} {{$lunch}}
@@ -92,7 +93,7 @@ Diyet Listesi Oluştur
                                 @if(!empty($besinler['snack_2']['besinler']))
                                 <div class="col-md-2">
                                 <div class="card">
-                                    <div class="card-header bg-green text-white">Ara Öğün 2</div>
+                                    <div class="card-header bg-green text-white">Ara Öğün 2 <a data-bs-toggle="modal" data-bs-target="#exampleModalCenter" data-type="snack_2" data-id="Ara Öğün"  class="addItemModal btn btn-sm btn-warning float-end"><i class="fa-solid fa-plus"></i></a></div>
                                     <div class="card-body">
                                         @foreach(collect($besinler['snack_2']['besinler'])->countBy() as $snack_2 => $count)
                                            - {{ $count }} {{$snack_2}}
@@ -115,7 +116,7 @@ Diyet Listesi Oluştur
                                 @if(!empty($besinler['dinner']['besinler']))
                             <div class="col-md-2">
                                 <div class="card">
-                                    <div class="card-header bg-green text-white">Akşam Yemeği</div>
+                                    <div class="card-header bg-green text-white">Akşam Yemeği <a data-bs-toggle="modal" data-bs-target="#exampleModalCenter" data-type="dinner" data-id="Akşam Yemeği"  class="addItemModal btn btn-sm btn-warning float-end"><i class="fa-solid fa-plus"></i></a></div>
                                     <div class="card-body">
                                         @foreach(collect($besinler['dinner']['besinler'])->countBy() as $dinner => $count)
                                           -  {{ $count }} {{$dinner}}
@@ -151,7 +152,7 @@ Diyet Listesi Oluştur
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-10">
+                            <div class="col-md-12">
                                 <div class="row bg-success p-1 rounded-1">
                                     <div class="col-md-2 text-bold">Çıkan Yağ(kcal): {{$arr2['cıkan_yag']}}</div>
                                     <div class="col-md-2 text-bold">Çıkan Protein(kcal): {{$arr2['cıkan_protein']}}</div>
@@ -167,4 +168,58 @@ Diyet Listesi Oluştur
 
     </div>
 
+    @include('back.partials.addItemModal')
+
+    <script>
+        $(document).ready(function(){
+            $('.addItemModal').on('click',function (){
+
+                var selectedMeals= @php echo json_encode($besinler) @endphp;
+                var mealType = $(this).attr('data-id');
+                var dataType = $(this).attr('data-type');
+
+                $('#mealType').html('');
+                $('#addMealForModal').html('');
+                $('#addSelectedItem').html('');
+
+                $.ajax({
+                    type:'post',
+                    url:'{{route('calorie.addItem')}}',
+                    data:
+                        {
+                            mealType: mealType,
+                            selectedMeals:selectedMeals,
+                        },
+                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                    success:function(data){
+                        var meals =data.data['meals'];
+                        var selectMeals =data.data['selectMeals'][dataType]['besinler'];
+                        var selectMealsValues =data.data['selectMeals'][dataType]['degerler'];
+
+                        let uniqueSubjects = [...new Set(selectMeals)];
+
+                        console.log(uniqueSubjects);
+
+                        $('#mealType').append(mealType);
+
+                        $.each(meals,function(index, value ) {
+                            $('#addMealForModal').append('<tr> <th scope="row"> '+value.food+' </th> <td> '+value.carbohydrate+' gr   ( '+parseFloat(value.carbohydrate*4,10)+' kcal )  </td> <td> '+value.protein+' gr   ( '+parseInt(value.protein*4,10)+' kcal )  </td> <td> '+value.fat+' gr   ( '+parseInt(value.fat*9,10)+' kcal )  </td> <td>  '+parseInt(value.carbohydrate*4 + value.fat*9 + value.protein*4,10) +' kcal </td> <td> <a href="" class="btn btn-success"><i class="fa-solid fa-plus"></i></a> </td> </tr>');
+                        });
+                        counts = {};
+
+                        $.each(uniqueSubjects,function(i, v) {
+                            if (!counts.hasOwnProperty(v)) {
+                                counts[v] = 1;
+                            } else {
+                                    counts[v]++;
+                            }
+
+                            $('#addSelectedItem').append('<tr> <th scope="row"> '+counts[v]+'  '+v+'  </th> <td>  '+selectMealsValues['karbonhidrat']+' gr</td> <td> '+selectMealsValues['protein']+' gr</td>  <td>'+selectMealsValues['yag']+' gr</td> <td>'+ parseFloat((selectMealsValues['yag']*9) + (selectMealsValues['karbonhidrat']*4) + (selectMealsValues['protein']*4)) +'</td> </tr>');
+                        });
+                    }
+                })
+            })
+        })
+    </script>
 @endsection
+
