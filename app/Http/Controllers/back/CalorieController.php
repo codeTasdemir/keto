@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 class CalorieController extends Controller
 {
+
     public function index()
     {
         $calories = Calorie::get();
