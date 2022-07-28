@@ -219,5 +219,6 @@ Diyet Listesi Oluştur
             })
         })
     </script>
+
 @endsection
 
