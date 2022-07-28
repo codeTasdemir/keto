@@ -193,28 +193,26 @@ Diyet Listesi Oluştur
                     headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                     success:function(data){
                         var meals =data.data['meals'];
-                        var selectMeals =data.data['selectMeals'][dataType]['besinler'];
+                        var selectMeals =data.data['selectMeals'];
                         var selectMealsValues =data.data['selectMeals'][dataType]['degerler'];
 
-                        let uniqueSubjects = [...new Set(selectMeals)];
 
-                        console.log(uniqueSubjects);
+
+                        const counts = {};
+                        selectMeals[dataType]['besinler'].forEach(function (x) { counts[x] = (counts[x] || 0) + 1; });
+
 
                         $('#mealType').append(mealType);
 
                         $.each(meals,function(index, value ) {
                             $('#addMealForModal').append('<tr> <th scope="row"> '+value.food+' </th> <td> '+value.carbohydrate+' gr   ( '+parseFloat(value.carbohydrate*4,10)+' kcal )  </td> <td> '+value.protein+' gr   ( '+parseInt(value.protein*4,10)+' kcal )  </td> <td> '+value.fat+' gr   ( '+parseInt(value.fat*9,10)+' kcal )  </td> <td>  '+parseInt(value.carbohydrate*4 + value.fat*9 + value.protein*4,10) +' kcal </td> <td> <a href="" class="btn btn-success"><i class="fa-solid fa-plus"></i></a> </td> </tr>');
                         });
-                        counts = {};
 
+
+
+                        let uniqueSubjects = [...new Set(selectMeals[dataType]['besinler'])];
                         $.each(uniqueSubjects,function(i, v) {
-                            if (!counts.hasOwnProperty(v)) {
-                                counts[v] = 1;
-                            } else {
-                                    counts[v]++;
-                            }
-
-                            $('#addSelectedItem').append('<tr> <th scope="row"> '+counts[v]+'  '+v+'  </th> <td>  '+selectMealsValues['karbonhidrat']+' gr</td> <td> '+selectMealsValues['protein']+' gr</td>  <td>'+selectMealsValues['yag']+' gr</td> <td>'+ parseFloat((selectMealsValues['yag']*9) + (selectMealsValues['karbonhidrat']*4) + (selectMealsValues['protein']*4)) +'</td> </tr>');
+                            $('#addSelectedItem').append('<tr> <th scope="row">  '+counts[v]+' '+v+'  </th> <td>  '+selectMeals[dataType]['degerler']['karbonhidrat']+' gr</td> <td> '+selectMeals[dataType]['degerler']['protein']+' gr</td>  <td>'+selectMeals[dataType]['degerler']['yag']+' gr</td> <td>'+ parseFloat((selectMeals[dataType]['degerler']['yag']*9) + (selectMeals[dataType]['degerler']['karbonhidrat']*4) + (selectMeals[dataType]['degerler']['protein']*4)) +'</td> </tr>');
                         });
                     }
                 })
