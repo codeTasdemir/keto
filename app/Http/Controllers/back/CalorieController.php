@@ -22,7 +22,6 @@ class CalorieController extends Controller
     {
         $calorie = Calorie::find($id);
         return view('back.pages.Calorie.calorieEdit',compact('calorie'));
-d
     }
     public function update(Request $request,$id)
     {
