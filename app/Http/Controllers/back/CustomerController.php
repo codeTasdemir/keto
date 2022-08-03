@@ -379,7 +379,6 @@ class CustomerController extends Controller
                 $i++;
             }
         }
-
         $details =[
             'besinler'=>$result,
             'degerler'=> ['protein'=>$protein, 'karbonhidrat'=>$carbohydrate,'yag'=>$fat],

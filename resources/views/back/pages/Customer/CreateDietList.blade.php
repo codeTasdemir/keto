@@ -205,16 +205,31 @@ Diyet Listesi Oluştur
                         $('#mealType').append(mealType);
 
                         $.each(meals,function(index, value ) {
-                            $('#addMealForModal').append('<tr> <th scope="row"> '+value.food+' </th> <td> '+value.carbohydrate+' gr   ( '+parseFloat(value.carbohydrate*4,10)+' kcal )  </td> <td> '+value.protein+' gr   ( '+parseInt(value.protein*4,10)+' kcal )  </td> <td> '+value.fat+' gr   ( '+parseInt(value.fat*9,10)+' kcal )  </td> <td>  '+parseInt(value.carbohydrate*4 + value.fat*9 + value.protein*4,10) +' kcal </td> <td> <a href="" class="btn btn-success"><i class="fa-solid fa-plus"></i></a> </td> </tr>');
+                            $('#addMealForModal').append('<tr class="choose_meal" > <th scope="row"> '+value.food+' </th> <td> '+value.carbohydrate+' gr   ( '+parseFloat(value.carbohydrate*4,10)+' kcal )  </td> <td> '+value.protein+' gr   ( '+parseInt(value.protein*4,10)+' kcal )  </td> <td> '+value.fat+' gr   ( '+parseInt(value.fat*9,10)+' kcal )  </td> <td>  '+parseInt(value.carbohydrate*4 + value.fat*9 + value.protein*4,10) +' kcal </td> <td> <button href="" class="btn btn-success add_meal_select_list"><i class="fa-solid fa-plus"></i></button> </td> </tr>');
                         });
 
 
 
                         let uniqueSubjects = [...new Set(selectMeals[dataType]['besinler'])];
                         $.each(uniqueSubjects,function(i, v) {
-                            $('#addSelectedItem').append('<tr> <th scope="row">  '+counts[v]+' '+v+'  </th> <td>  '+selectMeals[dataType]['degerler']['karbonhidrat']+' gr</td> <td> '+selectMeals[dataType]['degerler']['protein']+' gr</td>  <td>'+selectMeals[dataType]['degerler']['yag']+' gr</td> <td>'+ parseFloat((selectMeals[dataType]['degerler']['yag']*9) + (selectMeals[dataType]['degerler']['karbonhidrat']*4) + (selectMeals[dataType]['degerler']['protein']*4)) +'</td> </tr>');
+                            $('#addSelectedItem').append('<tr> <th scope="row">  '+counts[v]+' '+v+'  </th> <td>  </td> <td> </td>  <td> </td> <td> </td> </tr>');
                         });
+                        $('#addSelectedItem').append('<tr > <th scope="row">  Toplam </th> <td>  '+parseFloat(selectMeals[dataType]['degerler']['karbonhidrat']).toFixed(2)+' gr</td> <td> '+parseFloat(selectMeals[dataType]['degerler']['protein']).toFixed(2)+' gr</td>  <td>'+parseFloat(selectMeals[dataType]['degerler']['yag']).toFixed(2)+' gr</td> <td class="text-center" colspan="2">'+ parseFloat((selectMeals[dataType]['degerler']['yag']*9) + (selectMeals[dataType]['degerler']['karbonhidrat']*4) + (selectMeals[dataType]['degerler']['protein']*4)).toFixed(2) +'</td> </tr>');
+
+                        $( "#addMealForModal" ).click(function() {
+                        });
+
+                        $('.choose_meal').on('click',function (){
+                           var meal =  $(this).find('th:eq(0)').text();
+                           var carb =  $(this).find('td:eq(0)').text();
+                           var pro =  $(this).find('td:eq(1)').text();
+                           var fat =  $(this).find('td:eq(2)').text();
+                           var cal =  $(this).find('td:eq(3)').text();
+
+                           $('#addSelectedItem').append('<tr> <th scope="row"> '+meal+' </th> <td> '+carb+'</td> <td> '+pro+' </td>  <td> '+fat+'  </td> <td> '+cal+' </td> <td> <button  class="btn btn-success btn-sm"><i class="fa-solid fa-plus"></i></button> <button  class="btn btn-danger btn-sm"><i class="fa-solid fa-minus"></i></button> </td> </tr>')
+                        })
                     }
+
                 })
             })
         })

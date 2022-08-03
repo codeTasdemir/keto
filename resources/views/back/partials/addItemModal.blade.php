@@ -23,36 +23,17 @@
                             </tr>
                             </thead>
                             <tbody id="addSelectedItem">
-{{--                            <tr>--}}
-
-{{--                                <th scope="row">--}}
-{{--                                    @foreach(collect($besinler['breakfast']['besinler'])->countBy() as $breakfast => $count)--}}
-{{--                                        -  {{ $count }} {{$breakfast}}--}}
-{{--                                        <br>--}}
-{{--                                    @endforeach</th>--}}
-{{--                                <td>--}}
-{{--                                    @foreach(collect($besinler['breakfast']['degerler']['karbonhidrat']) as $k => $carbohydrate)--}}
-
-{{--                                        {{$carbohydrate . 'gr' }}  {{ '( '. $carbohydrate * 4 . 'kcal' . ' )' }}--}}
-{{--                                        <br>--}}
-{{--                                    @endforeach--}}
-{{--                                </td>--}}
-{{--                                <td> @foreach(collect($besinler['breakfast']['degerler']['protein']) as $v => $protein)--}}
-
-{{--                                        {{$protein . 'gr' }}  {{ '( '. $protein * 4 . 'kcal' . ' )' }}--}}
-{{--                                        <br>--}}
-{{--                                    @endforeach</td>--}}
-{{--                                <td>@foreach(collect($besinler['breakfast']['degerler']['yag']) as $ı => $fat)--}}
-
-{{--                                        {{$fat . 'gr' }}  {{ '( '. $fat * 9 . 'kcal' . ' )' }}--}}
-{{--                                        <br>--}}
-{{--                                    @endforeach</td>--}}
-{{--                                <td>{{ ($fat*9) +  ($protein*4) +  ($carbohydrate*4) . 'kcal'}}</td>--}}
-{{--                                <td>--}}
-{{--                                    <a href="" class="btn btn-success btn-sm"><i class="fa-solid fa-plus"></i></a>--}}
-{{--                                    <a href="" class="btn btn-danger btn-sm"><i class="fa-solid fa-minus"></i></a>--}}
-{{--                                </td>--}}
-{{--                            </tr>--}}
+                            <tr>
+                                <th scope="row"></th>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <a href="" class="btn btn-success btn-sm"><i class="fa-solid fa-plus"></i></a>
+                                    <a href="" class="btn btn-danger btn-sm"><i class="fa-solid fa-minus"></i></a>
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
