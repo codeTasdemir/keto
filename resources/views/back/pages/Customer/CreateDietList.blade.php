@@ -229,7 +229,6 @@ Diyet Listesi Oluştur
                            $('#addSelectedItem').append('<tr> <th scope="row"> '+meal+' </th> <td> '+carb+'</td> <td> '+pro+' </td>  <td> '+fat+'  </td> <td> '+cal+' </td> <td> <button  class="btn btn-success btn-sm"><i class="fa-solid fa-plus"></i></button> <button  class="btn btn-danger btn-sm"><i class="fa-solid fa-minus"></i></button> </td> </tr>')
                         })
                     }
-
                 })
             })
         })
