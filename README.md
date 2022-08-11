@@ -11,3 +11,4 @@ Programming language used in this project:
 -Jquery
 -Mysql
 -Bootstrapp
+-ajax
